@@ -93,14 +93,13 @@ class Dl4jFlowerDataSetIterator {
     private static void downloadAndUntar() throws IOException {
         File rootFile = new File(DATA_DIR);
         if (!rootFile.exists()) {
+            log.info("Folder " + DATA_DIR + " did not exits creating...");
             rootFile.mkdir();
         }
         File tarFile = new File(DATA_DIR, "flower_photos.tgz");
-        if (!tarFile.isFile()) {
-            log.info("Downloading the flower dataset from " + DATA_URL + "...");
-            FileUtils.copyURLToFile(
-                    new URL(DATA_URL),
-                    tarFile);
+        if (!tarFile.exists()) {
+            log.info("Downloading the flower dataset from " + DATA_URL + " to " + DATA_DIR + "...");
+            FileUtils.copyURLToFile(new URL(DATA_URL), tarFile);
         } else {
             log.info("Skipping downloading the flower dataset as it already exits.");
         }
