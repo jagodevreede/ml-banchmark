@@ -16,6 +16,7 @@
 
     <modules>
         <module>dl4j</module>
+        <module>dlj</module>
     </modules>
 
     <build>

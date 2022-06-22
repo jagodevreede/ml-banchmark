@@ -23,8 +23,6 @@ public abstract class Dl4jAbstractLearner {
     protected abstract ComputationGraph createComputationGraph() throws IOException;
 
     void start() throws IOException {
-        final long startTime = System.currentTimeMillis();
-
         ComputationGraph transferGraph = createComputationGraph();
         log.info("Model setup complete");
 
@@ -38,6 +36,7 @@ public abstract class Dl4jAbstractLearner {
 
         Evaluation eval;
 
+        final long startTime = System.currentTimeMillis();
         int epoch = 1;
         while (epoch <= trainEpochs) {
             int iter = 0;
