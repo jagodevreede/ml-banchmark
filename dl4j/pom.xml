@@ -20,7 +20,7 @@
         <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
         <logback.version>1.2.11</logback.version>
         <javacv.version>1.5.5</javacv.version>
-
+        <exec.mainClass>org.acme.Dl4jResnet</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -132,7 +132,7 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.acme.Dl4jResnet</mainClass>
+                                    <mainClass>${exec.mainClass}</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

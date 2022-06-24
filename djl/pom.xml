@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dlj</artifactId>
+    <artifactId>djl</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -16,7 +16,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <djl.version>0.17.0</djl.version>
         <logback.version>1.2.11</logback.version>
-        <exec.mainClass>org.acme.DljResnet</exec.mainClass>
+        <exec.mainClass>org.acme.DjlResnet</exec.mainClass>
     </properties>
 
     <dependencyManagement>

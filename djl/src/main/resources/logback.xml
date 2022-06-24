@@ -7,11 +7,8 @@
         </encoder>
     </appender>
 
-    <logger name="org.deeplearning4j" level="INFO" />
     <logger name="org.acme" level="INFO" />
-    <logger name="org.canova" level="INFO" />
-    <logger name="org.datavec" level="INFO" />
-    <logger name="org.nd4j" level="INFO" />
+    <logger name="ai.djl" level="INFO" />
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />

@@ -1,6 +1,6 @@
 from timeit import default_timer as timer
+
 import tensorflow as tf
-import numpy as np
 import tensorflow_datasets as tfds
 from tensorflow.keras.utils import to_categorical
 
@@ -25,10 +25,12 @@ from tensorflow.keras.applications.vgg16 import preprocess_input
 train_ds = preprocess_input(train_ds)
 test_ds = preprocess_input(test_ds)
 
-print("shape: " + train_ds[0].shape);
+# VGG16:
 base_model = VGG16(weights="imagenet", include_top=False, input_shape=train_ds[0].shape)
-base_model.trainable = False
+# Resnet:
+#base_model = tf.keras.applications.resnet50.ResNet50(weights='imagenet', include_top=False, input_shape=train_ds[0].shape)
 
+base_model.trainable = False
 
 from tensorflow.keras import layers, models
 
@@ -62,7 +64,7 @@ startTraining = timer()
 model.fit(
     train_ds,
     train_labels,
-    epochs=2,
+    epochs=3,
     validation_split=0.2,
     batch_size=32,
     callbacks=[es],

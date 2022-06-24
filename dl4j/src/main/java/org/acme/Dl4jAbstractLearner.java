@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class Dl4jAbstractLearner {
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(Dl4jAbstractLearner.class);
-
+    private final String MODEL_NAME = "flowers-" + this.getClass().getSimpleName();
     protected static final int numClasses = 5;
     protected static final long seed = 12345;
 
@@ -54,11 +54,11 @@ public abstract class Dl4jAbstractLearner {
         }
 
         log.info("Model build complete in " + (System.currentTimeMillis() - startTime) / 1000 + "sec");
-        transferGraph.save(new File("flowerResNet50.zip"));
+        transferGraph.save(new File(MODEL_NAME + ".zip"));
     }
 
     private void exportLabels(DataSetIterator trainIter) throws IOException {
-        FileWriter writer = new FileWriter("flowerResNet50.csv");
+        FileWriter writer = new FileWriter(MODEL_NAME + ".csv");
         List<String> test = trainIter.getLabels();
 
         String collect = String.join(",", test);

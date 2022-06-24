@@ -1,6 +1,5 @@
 package org.acme;
 
-import ai.djl.Application;
 import ai.djl.MalformedModelException;
 import ai.djl.Model;
 import ai.djl.basicdataset.cv.classification.ImageFolder;
@@ -32,8 +31,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class DljResnet {
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(DljResnet.class);
+abstract class DjlAbstractLearner {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(DjlAbstractLearner.class);
 
     private static final String DATA_DIR = new File(System.getProperty("user.home")) + "/dl4j-examples-data/dl4j-examples";
     private static final String FLOWER_DIR = DATA_DIR + "/flower_photos";
@@ -41,14 +40,13 @@ public class DljResnet {
     private static final int IMAGE_WIDTH = 224;
     private static final int IMAGE_HEIGHT = 224;
     private static final int BATCH_SIZE = 32;
-    private static final String MODEL_NAME = "flowers";
+    private final String MODEL_NAME = "flowers-" + this.getClass().getSimpleName();
     private static final long NUM_OF_OUTPUT = 5;
     private static final int EPOCHS = 3;
 
     private static final Path modelDir = Paths.get("models");
 
-
-    private void start() throws Exception {
+    void start() throws Exception {
         ImageFolder dataset = initDataset(FLOWER_DIR);
         // Split the dataset set into training dataset and validate dataset
         RandomAccessDataset[] datasets = dataset.randomSplit(8, 2);
@@ -91,32 +89,28 @@ public class DljResnet {
             model.save(modelDir, MODEL_NAME);
 
             // save labels into model directory
-            saveSynset(modelDir, dataset.getSynset());
+            saveLabels(modelDir, dataset.getSynset());
             log.info("Total build complete in " + (System.currentTimeMillis() - startTime) / 1000 + "sec");
         }
     }
 
-    public void saveSynset(Path modelDir, List<String> synset) throws IOException {
-        Path synsetFile = modelDir.resolve("synset.txt");
-        try (Writer writer = Files.newBufferedWriter(synsetFile)) {
+    public void saveLabels(Path modelDir, List<String> synset) throws IOException {
+        final Path labelFile = modelDir.resolve(MODEL_NAME +".txt");
+        try (Writer writer = Files.newBufferedWriter(labelFile)) {
             writer.write(String.join("\n", synset));
         }
     }
 
-    private static Model getModel() throws IOException, ModelNotFoundException, MalformedModelException {
-        Criteria.Builder<Image, Classifications> builder =
-                Criteria.builder()
-                        .optApplication(Application.CV.IMAGE_CLASSIFICATION)
-                        .setTypes(Image.class, Classifications.class)
-                        .optProgress(new ProgressBar())
-                        .optArtifactId("resnet");
-        builder.optGroupId("ai.djl.mxnet");
-        builder.optFilter("layers", "50");
-        builder.optFilter("flavor", "v1");
+    protected abstract Criteria.Builder<Image, Classifications> getModelBuilder();
+
+    private Model getModel() throws IOException, ModelNotFoundException, MalformedModelException {
+        Criteria.Builder<Image, Classifications> builder = getModelBuilder();
         Model model = builder.build().loadModel();
         SequentialBlock newBlock = new SequentialBlock();
         SymbolBlock block = (SymbolBlock) model.getBlock();
         block.removeLastBlock();
+        // freeze original model
+        block.freezeParameters(true);
         newBlock.add(block);
         // the original model don't include the flatten so apply the flatten here
         newBlock.add(Blocks.batchFlattenBlock());
@@ -126,14 +120,14 @@ public class DljResnet {
         return model;
     }
 
-    private static TrainingConfig setupTrainingConfig(Loss loss) {
+    private TrainingConfig setupTrainingConfig(Loss loss) {
         return new DefaultTrainingConfig(loss)
                 .addEvaluator(new Accuracy())
                 .optExecutorService()
-                .addTrainingListeners(TrainingListener.Defaults.logging());
+                .addTrainingListeners(TrainingListener.Defaults.logging(1));
     }
 
-    private static ImageFolder initDataset(String datasetRoot) throws IOException {
+    private ImageFolder initDataset(String datasetRoot) throws IOException {
         ImageFolder dataset =
                 ImageFolder.builder()
                         // retrieve the data
@@ -147,11 +141,6 @@ public class DljResnet {
 
         dataset.prepare(new ProgressBar());
         return dataset;
-    }
-
-    public static void main(String[] args) throws Exception {
-        log.info("Starting Resnet model");
-        new DljResnet().start();
     }
 
 }

@@ -67,3 +67,6 @@ hs_err_pid*
 *.png
 .idea/
 old/
+
+*.h5
+*.params
