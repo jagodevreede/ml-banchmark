@@ -100,9 +100,9 @@ class Dl4jFlowerDataSetIterator {
         if (!tarFile.exists()) {
             log.info("Downloading the flower dataset from " + DATA_URL + " to " + DATA_DIR + "...");
             FileUtils.copyURLToFile(new URL(DATA_URL), tarFile);
+            ArchiveUtils.unzipFileTo(tarFile.getAbsolutePath(), rootFile.getAbsolutePath());
         } else {
             log.info("Skipping downloading the flower dataset as it already exits.");
         }
-        ArchiveUtils.unzipFileTo(tarFile.getAbsolutePath(), rootFile.getAbsolutePath());
     }
 }
