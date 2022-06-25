@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 public abstract class Dl4jAbstractLearner {
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(Dl4jAbstractLearner.class);
+    private final Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
     private final String MODEL_NAME = "flowers-" + this.getClass().getSimpleName();
     protected static final int numClasses = 5;
     protected static final long seed = 12345;
@@ -23,6 +23,7 @@ public abstract class Dl4jAbstractLearner {
     protected abstract ComputationGraph createComputationGraph() throws IOException;
 
     void start() throws IOException {
+        final long startupTime = System.currentTimeMillis();
         ComputationGraph transferGraph = createComputationGraph();
         log.info("Model setup complete");
 
@@ -32,7 +33,7 @@ public abstract class Dl4jAbstractLearner {
         DataSetIterator testIter = Dl4jFlowerDataSetIterator.testIterator();
 
         exportLabels(trainIter);
-        log.info("Labels exported");
+        log.info("Labels exported, starting training. Startup took {}ms", (System.currentTimeMillis() - startupTime));
 
         Evaluation eval;
 
@@ -53,7 +54,7 @@ public abstract class Dl4jAbstractLearner {
             epoch++;
         }
 
-        log.info("Model build complete in " + (System.currentTimeMillis() - startTime) / 1000 + "sec");
+        log.info("Model build complete in {}sec with batch of {}," , (System.currentTimeMillis() - startTime) / 1000, batchSize);
         transferGraph.save(new File(MODEL_NAME + ".zip"));
     }
 
