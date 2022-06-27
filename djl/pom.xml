@@ -19,6 +19,33 @@
         <exec.mainClass>org.acme.DjlResnet</exec.mainClass>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>cpu</id>
+            <dependencies>
+                <dependency>
+                    <groupId>ai.djl.mxnet</groupId>
+                    <artifactId>mxnet-native-mkl</artifactId>
+                    <classifier>linux-x86_64</classifier>
+                    <scope>runtime</scope>
+                    <version>1.9.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>gpu</id>
+            <dependencies>
+                <dependency>
+                    <groupId>ai.djl.mxnet</groupId>
+                    <artifactId>mxnet-native-cu112mkl</artifactId>
+                    <classifier>linux-x86_64</classifier>
+                    <version>1.9.0</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

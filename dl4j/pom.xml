@@ -13,9 +13,6 @@
 
     <properties>
         <dl4j-master.version>1.0.0-M2</dl4j-master.version>
-        <!-- Change the nd4j.backend property to nd4j-cuda-X-platform to use CUDA GPUs -->
-        <!-- <nd4j.backend>nd4j-cuda-10.2-platform</nd4j.backend> -->
-        <nd4j.backend>nd4j-native</nd4j.backend>
         <exec-maven-plugin.version>1.4.0</exec-maven-plugin.version>
         <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
         <logback.version>1.2.11</logback.version>
@@ -23,13 +20,30 @@
         <exec.mainClass>org.acme.Dl4jResnet</exec.mainClass>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.nd4j</groupId>
-            <artifactId>${nd4j.backend}</artifactId>
-            <version>${dl4j-master.version}</version>
-        </dependency>
+    <profiles>
+        <profile>
+            <id>cpu</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.nd4j</groupId>
+                    <artifactId>nd4j-native</artifactId>
+                    <version>1.0.0-M2</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>gpu</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.nd4j</groupId>
+                    <artifactId>nd4j-cuda-11.0-platform</artifactId>
+                    <version>1.0.0-M1.1</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
+    <dependencies>
         <dependency>
             <groupId>org.datavec</groupId>
             <artifactId>datavec-api</artifactId>
@@ -77,8 +91,8 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
-
     </dependencies>
+
     <build>
         <plugins>
             <plugin>

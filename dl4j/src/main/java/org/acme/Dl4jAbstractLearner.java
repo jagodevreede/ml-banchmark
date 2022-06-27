@@ -33,7 +33,7 @@ public abstract class Dl4jAbstractLearner {
         DataSetIterator testIter = Dl4jFlowerDataSetIterator.testIterator();
 
         exportLabels(trainIter);
-        log.info("Labels exported, starting training. Startup took {}ms", (System.currentTimeMillis() - startupTime));
+        log.info("Labels exported, starting training with a batch size of {}. Startup took {}ms", batchSize, (System.currentTimeMillis() - startupTime));
 
         Evaluation eval;
 
