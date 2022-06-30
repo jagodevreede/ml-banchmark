@@ -8,4 +8,5 @@ do
   CPU=$(mpstat | tail -n 1)
   MEM=$(free | tail -n 2 | head -n 1)
   echo $CPU $GPU $MEM >> usage.log
+  sleep 1
 done
