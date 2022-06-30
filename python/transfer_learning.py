@@ -71,7 +71,7 @@ model.fit(
 )
 endTraining = timer()
 print("Training took")
-print(endTraining - startTraining);
+print(endTraining - startTraining)
 
 model.evaluate(test_ds, test_labels)
 endEval = timer()
