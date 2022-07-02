@@ -26,7 +26,7 @@ public class DjlResnet extends DjlAbstractLearner {
 
     public static void main(String[] args) throws Exception {
         log.info("Starting Resnet model");
-        new DjlResnet().start();
+        new DjlResnet().start(args);
     }
 
 }

@@ -47,6 +47,6 @@ public class Dl4jResnet extends Dl4jAbstractLearner  {
 
     public static void main(String[] args) throws IOException {
         log.info("Starting Resnet model");
-        new Dl4jResnet().start();
+        new Dl4jResnet().start(args);
     }
 }

@@ -49,6 +49,6 @@ public class Dl4jVGG16 extends Dl4jAbstractLearner {
 
     public static void main(String[] args) throws IOException {
         log.info("Starting VGG16 model");
-        new Dl4jVGG16().start();
+        new Dl4jVGG16().start(args);
     }
 }

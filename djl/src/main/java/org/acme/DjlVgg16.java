@@ -26,7 +26,7 @@ public class DjlVgg16 extends DjlAbstractLearner {
 
     public static void main(String[] args) throws Exception {
         log.info("Starting Vgg16 model");
-        new DjlVgg16().start();
+        new DjlVgg16().start(args);
     }
 
 }

@@ -17,12 +17,16 @@ public abstract class Dl4jAbstractLearner {
     protected static final long seed = 12345;
 
     private static final int trainPerc = 80;
-    private static final int batchSize = 16;
+    private static int batchSize = 16;
     private static final int trainEpochs = 3;
 
     protected abstract ComputationGraph createComputationGraph() throws IOException;
 
-    void start() throws IOException {
+    void start(String... args) throws IOException {
+        if (args.length == 1) {
+            batchSize = Integer.parseInt(args[0]);
+        }
+        log.info("Starting training with batch size: {}", batchSize);
         final long startupTime = System.currentTimeMillis();
         ComputationGraph transferGraph = createComputationGraph();
         log.info("Model setup complete");

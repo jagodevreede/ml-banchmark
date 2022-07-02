@@ -39,14 +39,18 @@ abstract class DjlAbstractLearner {
 
     private static final int IMAGE_WIDTH = 224;
     private static final int IMAGE_HEIGHT = 224;
-    private static final int BATCH_SIZE = 32;
+    private static int batchSize = 16;
     private final String MODEL_NAME = "flowers-" + this.getClass().getSimpleName();
     private static final long NUM_OF_OUTPUT = 5;
     private static final int EPOCHS = 3;
 
     private static final Path modelDir = Paths.get("models");
 
-    void start() throws Exception {
+    void start(String... args) throws Exception {
+        if (args.length == 1) {
+            batchSize = Integer.parseInt(args[0]);
+        }
+        log.info("Starting training with batch size: {}", batchSize);
         ImageFolder dataset = initDataset(FLOWER_DIR);
         // Split the dataset set into training dataset and validate dataset
         RandomAccessDataset[] datasets = dataset.randomSplit(8, 2);
@@ -136,7 +140,7 @@ abstract class DjlAbstractLearner {
                         .addTransform(new Resize(IMAGE_WIDTH, IMAGE_HEIGHT))
                         .addTransform(new ToTensor())
                         // random sampling; don't process the data in order
-                        .setSampling(BATCH_SIZE, true)
+                        .setSampling(batchSize, true)
                         .build();
 
         dataset.prepare(new ProgressBar());
