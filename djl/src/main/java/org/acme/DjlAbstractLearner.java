@@ -116,7 +116,7 @@ abstract class DjlAbstractLearner {
         newBlock.add(Blocks.batchFlattenBlock());
         newBlock.add(Linear.builder().setUnits(NUM_OF_OUTPUT).build());
         model.setBlock(newBlock);
-        model.getBlock().clear();
+        //model.getBlock().clear();
         return model;
     }
 
