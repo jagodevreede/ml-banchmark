@@ -17,7 +17,7 @@
         <djl.version>0.17.0</djl.version>
         <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
         <logback.version>1.2.11</logback.version>
-        <exec.mainClass>org.acme.DjlResnet</exec.mainClass>
+        <exec.mainClass>org.acme.DjlMaint</exec.mainClass>
     </properties>
 
     <profiles>

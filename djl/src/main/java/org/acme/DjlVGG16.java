@@ -7,8 +7,8 @@ import ai.djl.repository.zoo.Criteria;
 import ai.djl.training.util.ProgressBar;
 import org.slf4j.Logger;
 
-public class DjlVgg16 extends DjlAbstractLearner {
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(DjlVgg16.class);
+public class DjlVGG16 extends DjlAbstractLearner {
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(DjlVGG16.class);
 
     @Override
     protected Criteria.Builder<Image, Classifications> getModelBuilder() {
@@ -26,7 +26,7 @@ public class DjlVgg16 extends DjlAbstractLearner {
 
     public static void main(String[] args) throws Exception {
         log.info("Starting Vgg16 model");
-        new DjlVgg16().start(args);
+        new DjlVGG16().start(args);
     }
 
 }
