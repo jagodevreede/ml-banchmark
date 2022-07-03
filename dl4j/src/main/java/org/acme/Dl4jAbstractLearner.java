@@ -1,8 +1,11 @@
 package org.acme;
 
 import org.deeplearning4j.nn.graph.ComputationGraph;
+import org.deeplearning4j.nn.layers.LayerHelper;
+import org.deeplearning4j.optimize.listeners.PerformanceListener;
 import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
+import org.nd4j.linalg.factory.Nd4j;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -39,6 +42,11 @@ public abstract class Dl4jAbstractLearner {
         exportLabels(trainIter);
         log.info("Labels exported, starting training with a batch size of {}. Startup took {}ms", batchSize, (System.currentTimeMillis() - startupTime));
 
+        LayerHelper h = transferGraph.getLayer(0).getHelper();
+        log.info("ND4J Data Type Setting: {}", Nd4j.dataType());
+        log.info("Layer helper: " + (h == null ? null : h.getClass().getName()));
+        transferGraph.setListeners(new PerformanceListener(1, true, true));
+
         Evaluation eval;
 
         final long startTime = System.currentTimeMillis();
@@ -46,7 +54,7 @@ public abstract class Dl4jAbstractLearner {
         while (epoch <= trainEpochs) {
             int iter = 0;
             while (trainIter.hasNext()) {
-                log.info(epoch + " Start train iter " + iter + ".... score: " + transferGraph.score());
+                //log.info(epoch + " Start train iter " + iter + ".... score: " + transferGraph.score());
                 transferGraph.fit(trainIter.next());
                 iter++;
             }

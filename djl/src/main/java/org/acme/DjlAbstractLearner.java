@@ -32,7 +32,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 abstract class DjlAbstractLearner {
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(DjlAbstractLearner.class);
+    private final Logger log = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     private static final String DATA_DIR = new File(System.getProperty("user.home")) + "/dl4j-examples-data/dl4j-examples";
     private static final String FLOWER_DIR = DATA_DIR + "/flower_photos";
@@ -84,8 +84,7 @@ abstract class DjlAbstractLearner {
             // set model properties
             TrainingResult result = trainer.getTrainingResult();
             model.setProperty("Epoch", String.valueOf(EPOCHS));
-            model.setProperty(
-                    "Accuracy", String.format("%.5f", result.getValidateEvaluation("Accuracy")));
+            model.setProperty("Accuracy", String.format("%.5f", result.getValidateEvaluation("Accuracy")));
             model.setProperty("Loss", String.format("%.5f", result.getValidateLoss()));
 
             // save the model after done training for inference later
