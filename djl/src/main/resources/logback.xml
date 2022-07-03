@@ -9,6 +9,7 @@
 
     <logger name="org.acme" level="INFO" />
     <logger name="ai.djl" level="INFO" />
+    <logger name="org.nd4j.common.util" level="WARN" />
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />
