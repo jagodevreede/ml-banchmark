@@ -14,7 +14,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <djl.version>0.17.0</djl.version>
+        <djl.version>0.18.0</djl.version>
         <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
         <logback.version>1.2.11</logback.version>
         <exec.mainClass>org.acme.DjlMain</exec.mainClass>
@@ -29,7 +29,6 @@
                     <artifactId>mxnet-native-mkl</artifactId>
                     <classifier>linux-x86_64</classifier>
                     <scope>runtime</scope>
-                    <version>1.9.0</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -40,7 +39,6 @@
                     <groupId>ai.djl.mxnet</groupId>
                     <artifactId>mxnet-native-cu102mkl</artifactId>
                     <classifier>linux-x86_64</classifier>
-                    <version>1.9.0</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
