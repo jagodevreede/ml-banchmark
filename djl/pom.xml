@@ -14,9 +14,9 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <djl.version>0.18.0</djl.version>
-        <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
-        <logback.version>1.2.11</logback.version>
+        <djl.version>0.21.0</djl.version>
+        <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
+        <logback.version>1.4.5</logback.version>
         <exec.mainClass>org.acme.DjlMain</exec.mainClass>
     </properties>
 
