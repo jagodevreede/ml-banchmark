@@ -17,6 +17,7 @@
     <modules>
         <module>dl4j</module>
         <module>djl</module>
+        <module>djl-pytorch</module>
     </modules>
 
     <build>
