@@ -68,5 +68,9 @@ hs_err_pid*
 .idea/
 old/
 
+model/
 *.h5
 *.params
+
+*.versionsBackup
+dependency-reduced-pom.xml
