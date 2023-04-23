@@ -24,26 +24,26 @@ transform = transforms.Compose([
     transforms.ToTensor()
 ])
 
-# Load the dataset and split it into training and validation sets
+print("Load the dataset and split it into training and validation sets")
 dataset = torchvision.datasets.ImageFolder(root=data_dir, transform=transform)
 num_train = int(0.8 * len(dataset))
 num_val = len(dataset) - num_train
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, [num_train, num_val])
 
-# Create data loaders for the training and validation sets
+print("Create data loaders for the training and validation sets")
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
-# Define the ResNet50 model and the optimizer
+print("Define the ResNet50 model")
 model = torchvision.models.resnet50(weights=None)
 model.fc = nn.Linear(2048, len(dataset.classes))
 model = model.to(device)
 
-# Define the optimizer and loss function
+print("Define the optimizer and loss function")
 optimizer = optim.Adam(model.parameters())
 criterion = nn.CrossEntropyLoss()
 
-# Train the model for the specified number of epochs
+print(f"Start the training for {epochs} epochs with {batch_size} batch size")
 start_time = time.time()
 
 for epoch in range(3):
