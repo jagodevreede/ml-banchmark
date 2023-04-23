@@ -10,6 +10,8 @@ public class DjlMain {
             new DjlVGG16().start(args[1]);
         } else if (args[0].equals("resnet")) {
             new DjlResnet().start(args[1]);
+        } else if (args[0].equals("resnetclean")) {
+            new DjlResnetNoTransferLearning().start(args[1]);
         } else {
             System.out.println("Unknown model: " + args[0]);
             System.exit(1);
