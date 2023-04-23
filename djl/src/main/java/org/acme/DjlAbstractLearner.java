@@ -20,6 +20,7 @@ import ai.djl.training.dataset.RandomAccessDataset;
 import ai.djl.training.evaluator.Accuracy;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
+import ai.djl.training.optimizer.Optimizer;
 import ai.djl.training.util.ProgressBar;
 import org.slf4j.Logger;
 
@@ -37,11 +38,11 @@ abstract class DjlAbstractLearner {
     private static final String DATA_DIR = new File(System.getProperty("user.home")) + "/dl4j-examples-data/dl4j-examples";
     private static final String FLOWER_DIR = DATA_DIR + "/flower_photos";
 
-    private static final int IMAGE_WIDTH = 224;
-    private static final int IMAGE_HEIGHT = 224;
+    protected static final int IMAGE_WIDTH = 224;
+    protected static final int IMAGE_HEIGHT = 224;
     private static int batchSize = 16;
     private final String MODEL_NAME = "flowers-" + this.getClass().getSimpleName();
-    private static final long NUM_OF_OUTPUT = 5;
+    protected static final long NUM_OF_OUTPUT = 5;
     private static final int EPOCHS = 3;
 
     private static final Path modelDir = Paths.get("models");
@@ -106,7 +107,7 @@ abstract class DjlAbstractLearner {
 
     protected abstract Criteria.Builder<Image, Classifications> getModelBuilder();
 
-    private Model getModel() throws IOException, ModelNotFoundException, MalformedModelException {
+    protected Model getModel() throws IOException, ModelNotFoundException, MalformedModelException {
         Criteria.Builder<Image, Classifications> builder = getModelBuilder();
         Model model = builder.build().loadModel();
         SequentialBlock newBlock = new SequentialBlock();
@@ -126,7 +127,7 @@ abstract class DjlAbstractLearner {
     private TrainingConfig setupTrainingConfig(Loss loss) {
         return new DefaultTrainingConfig(loss)
                 .addEvaluator(new Accuracy())
-                .optExecutorService()
+                .optOptimizer(Optimizer.adam().build())
                 .addTrainingListeners(TrainingListener.Defaults.logging(1));
     }
 
