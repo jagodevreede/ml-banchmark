@@ -105,8 +105,8 @@ public class DjlPyTorchLearner {
 
         Block resNet50 = ResNetV1.builder()
                 .setImageShape(new Shape(3, 224, 224))
-                .setNumLayers(152)
-                .setOutSize(2)
+                .setNumLayers(50)
+                .setOutSize(NUM_OF_OUTPUT)
                 .build();
 
         model.setBlock(resNet50);
