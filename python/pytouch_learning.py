@@ -43,10 +43,10 @@ print("Define the optimizer and loss function")
 optimizer = optim.Adam(model.parameters())
 criterion = nn.CrossEntropyLoss()
 
-print(f"Start the training for {epochs} epochs with {batch_size} batch size")
+print(f"Start the training for {num_epochs} epochs with {batch_size} batch size")
 start_time = time.time()
 
-for epoch in range(3):
+for epoch in range(num_epochs):
     train_loss = 0.0
     train_correct = 0.0
     train_total = 0.0
