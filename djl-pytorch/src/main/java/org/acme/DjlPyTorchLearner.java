@@ -13,6 +13,7 @@ import ai.djl.training.dataset.RandomAccessDataset;
 import ai.djl.training.evaluator.Accuracy;
 import ai.djl.training.listener.TrainingListener;
 import ai.djl.training.loss.Loss;
+import ai.djl.training.optimizer.Optimizer;
 import ai.djl.training.util.ProgressBar;
 import org.slf4j.Logger;
 
@@ -117,7 +118,7 @@ public class DjlPyTorchLearner {
     private TrainingConfig setupTrainingConfig(Loss loss) {
         return new DefaultTrainingConfig(loss)
                 .addEvaluator(new Accuracy())
-                .optExecutorService()
+                .optOptimizer(Optimizer.adam().build())
                 .addTrainingListeners(TrainingListener.Defaults.logging(1));
     }
 

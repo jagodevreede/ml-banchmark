@@ -38,7 +38,7 @@
             <dependencies>
                 <dependency>
                     <groupId>ai.djl.pytorch</groupId>
-                    <artifactId>pytorch-native-cu118</artifactId>
+                    <artifactId>pytorch-native-cu117</artifactId>
                     <classifier>linux-x86_64</classifier>
                     <version>1.13.1</version>
                     <scope>runtime</scope>

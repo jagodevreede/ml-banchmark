@@ -13,13 +13,10 @@ print(f"Using {device} device")
 data_dir = "~/dl4j-examples-data/dl4j-examples/flower_photos"
 
 # Define the batch size
-batch_size = 8
+batch_size = 16
 
 # Define the number of epochs to train for
 num_epochs = 3
-
-# Define the learning rate for the optimizer
-learning_rate = 0.001
 
 # Define the transformations for the data
 transform = transforms.Compose([
@@ -43,7 +40,7 @@ model.fc = nn.Linear(2048, len(dataset.classes))
 model = model.to(device)
 
 # Define the optimizer and loss function
-optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+optimizer = optim.Adam(model.parameters())
 criterion = nn.CrossEntropyLoss()
 
 # Train the model for the specified number of epochs
