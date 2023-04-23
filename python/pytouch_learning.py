@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 
 # Check if a GPU is available
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Using {device} device")
+print(f"Using {device} device on pytoch version {torch.__version__}")
 
 data_dir = "~/dl4j-examples-data/dl4j-examples/flower_photos"
 
@@ -75,6 +75,7 @@ for epoch in range(3):
             print(f"Epoch {epoch+1}/{num_epochs} Batch {batch_idx+1}/{len(train_loader)} "
                   f"Loss: {train_loss/train_total:.4f} Acc: {100*train_correct/train_total:.2f}%")
 
+    print("Starting validation")
     # Evaluate the model on the validation set
     model.eval()
     with torch.no_grad():
