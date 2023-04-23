@@ -29,7 +29,7 @@
                     <artifactId>pytorch-native-cpu</artifactId>
                     <classifier>linux-x86_64</classifier>
                     <scope>runtime</scope>
-                    <version>2.0.0</version>
+                    <version>1.13.1</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -40,7 +40,7 @@
                     <groupId>ai.djl.pytorch</groupId>
                     <artifactId>pytorch-native-cu118</artifactId>
                     <classifier>linux-x86_64</classifier>
-                    <version>2.0.0</version>
+                    <version>1.13.1</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -52,7 +52,7 @@
                     <groupId>ai.djl.pytorch</groupId>
                     <artifactId>pytorch-native-cpu</artifactId>
                     <classifier>osx-x86_64</classifier>
-                    <version>2.0.0</version>
+                    <version>1.13.1</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -108,7 +108,7 @@
         <dependency>
             <groupId>ai.djl.pytorch</groupId>
             <artifactId>pytorch-jni</artifactId>
-            <version>2.0.0-0.22.0</version>
+            <version>1.13.1-0.21.0</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>
