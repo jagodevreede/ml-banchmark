@@ -47,6 +47,7 @@ print(f"Start the training for {num_epochs} epochs with {batch_size} batch size"
 start_time = time.time()
 
 for epoch in range(num_epochs):
+    epoch_time = time.time()
     train_loss = 0.0
     train_correct = 0.0
     train_total = 0.0
@@ -93,6 +94,8 @@ for epoch in range(num_epochs):
     # Print the validation progress
     print(f"Epoch {epoch+1}/{num_epochs} "
           f"Val Loss: {val_loss/val_total:.4f} Val Acc: {100*val_correct/val_total:.2f}%")
+
+    print(f"Epoch time: {time.time() - epoch_time:.2f} seconds")
 
 end_time = time.time()
 # Track the total training time
