@@ -35,7 +35,7 @@ train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
 print("Define the ResNet50 model")
-model = torchvision.models.resnet50(weights=None)
+model = torchvision.models.resnet50()
 model.fc = nn.Linear(2048, len(dataset.classes))
 model = model.to(device)
 
